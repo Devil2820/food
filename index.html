@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foodie Express</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>Foodie Express</h1>
+    <nav>
+      <a href="#menu">Our Menu</a>
+      <a href="#bestseller">Bestsellers</a>
+      <a href="#combos">Combos</a>
+    </nav>
+  </header>
+
+  <!-- Slider -->
+  <section class="slider">
+    <img id="slider-image" src="slider2.png" alt="Delicious Food" />
+  </section>
+
+  <!-- Our Menu -->
+  <section id="menu" class="section">
+    <h2>Our Menu</h2>
+    <p>Explore our wide variety of dishes made with love and freshness.</p>
+  </section>
+
+  <!-- Bestseller -->
+  <section id="bestseller" class="section" style="background-color: #e1e3e0;">
+    <h2>Bestsellers</h2>
+    <div class="card-container">
+      <div class="card">
+        <img src="burger" alt="Burger"
+             data-title="Cheese Burger"
+             data-desc="Juicy grilled burger with cheese and lettuce."
+             data-price="Rs.350" />
+        <h3>Cheese Burger</h3>
+        <p>Rs.350</p>
+      </div>
+      <div class="card">
+        <img src="pizza" alt="Pizza"
+             data-title="Italian Pizza"
+             data-desc="Pan served and cheesy delicious pizza."
+             data-price="Rs.499" />
+        <h3>Veggie Pizza</h3>
+        <p>Rs.499</p>
+      </div>
+      <div class="card">
+        <img src="pasta.jpg" alt="Pasta"
+             data-title="Pasta"
+             data-desc="Creamy and saucy white sauce pasta."
+             data-price="Rs.699"/>
+        <h3>White Sauce Pasta</h3>
+        <p>Rs.699</p>
+      </div>
+      <div class="card">
+        <img src="cake.jpg" alt="Cake"
+             data-title="Chocolate Cake"
+             data-desc="Tempting and sweet dark chocolate cake."
+             data-price="Rs.299"/>
+        <h3>Chocolate Cake</h3>
+        <p>Rs.299</p>
+      </div>
+      <div class="card">
+        <img src="rools.jpg" alt="Spring Rolls"
+             data-title="Spring Rolls"
+             data-desc="Burst of spice with Chinese spring rolls."
+             data-price="Rs.199" />
+        <h3>Spring Rolls</h3>
+        <p>Rs.199</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Combos -->
+  <section id="combos" class="section">
+    <h2>Combos</h2>
+    <div class="card-container">
+      <div class="card">
+        <img src="combo1.jfif" alt="Combo 1"
+             data-title="Panner Combo"
+             data-desc="Delicious Paneer Tikka Combo"
+             data-price="Rs.550" />
+        <h3>Delicious Paneer Tikka Combo</h3>
+        <p>Rs.550</p>
+      </div>
+      <div class="card">
+        <img src="combo2.jfif" alt="Combo 2"
+             data-title="Chinese Combo"
+             data-desc="Full Chinese Platter"
+             data-price=">Rs.349" />
+        <h3>Full Chinese Platter</h3>
+        <p>Rs.349</p>
+      </div>
+      <div class="card">
+        <img src="combo3.jfif" alt="Combo 3"
+             data-title="Special Combo"
+             data-desc="All in one combo"
+             data-price="Rs.999" />
+        <h3>All in one combo</h3>
+        <p>Rs.999</p>
+      </div>
+      <div class="card">
+        <img src="combo4.jfif" alt="Combo 4"
+             data-title="Burger Combo"
+             data-desc="Burger + Fries + Coke"
+             data-price="Rs.599" />
+        <h3>Burger + Fries + Coke</h3>
+        <p>Rs.599</p>
+      </div>
+      <div class="card">
+        <img src="combo5.jfif" alt="Combo 5"
+             data-title="Fried Rice"
+             data-desc="Best Combo for Dinner"
+             data-price="Rs.399" />
+        <h3>Best Combo for Dinner</h3>
+        <p>Rs.399</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <img id="modal-img" src="" alt="" />
+      <h3 id="modal-title"></h3>
+      <p id="modal-desc"></p>
+      <p id="modal-price"></p>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Foodie Express | Designed with love</p>
+  </footer>
+
+  <script>
+    // Slider
+    const images = ['slider4.jpg', 'slider2.png', 'slider3.png', 'slider1.png'];
+    let index = 0;
+    const sliderImage = document.getElementById('slider-image');
+
+    function changeSlide() {
+      index = (index + 1) % images.length;
+      sliderImage.src = images[index];
+    }
+
+    setInterval(changeSlide, 3000);
+
+    // Modal Logic
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalPrice = document.getElementById('modal-price');
+    const closeBtn = document.querySelector('.close');
+
+    document.querySelectorAll('.card img').forEach(img => {
+      img.addEventListener('click', () => {
+        modalImg.src = img.src;
+        modalTitle.textContent = img.dataset.title || 'Food Item';
+        modalDesc.textContent = img.dataset.desc || 'No description available.';
+        modalPrice.textContent = img.dataset.price || '';
+        modal.style.display = 'block';
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target == modal) {
+        modal.style.display = 'none';
+      }
+    });
+    // Add to Cart button message display
+    const addToCartBtn = document.querySelector('.add-to-cart');
+
+    // Create message container
+    const messageContainer = document.createElement('div');
+    messageContainer.id = 'cart-message';
+    messageContainer.style.position = 'fixed';
+    messageContainer.style.top = '20px';
+    messageContainer.style.right = '30px';
+    messageContainer.style.padding = '10px 20px';
+    messageContainer.style.backgroundColor = '#4CAF50';
+    messageContainer.style.color = 'white';
+    messageContainer.style.fontSize = '16px';
+    messageContainer.style.borderRadius = '5px';
+    messageContainer.style.display = 'none';
+    messageContainer.style.zIndex = '1000';
+    document.body.appendChild(messageContainer);
+
+    addToCartBtn.addEventListener('click', () => {
+      messageContainer.textContent = 'Item added to cart';
+      messageContainer.style.display = 'block';
+      setTimeout(() => {
+        messageContainer.style.display = 'none';
+      }, 3000);
+    });
+    </script>
+
+</body>
+</html>
